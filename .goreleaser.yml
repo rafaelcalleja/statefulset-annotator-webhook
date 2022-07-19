@@ -19,7 +19,7 @@ dockers:
       - "rafaelcalleja/statefulset-annotator-webhook:{{ .Version }}"
       - "rafaelcalleja/statefulset-annotator-webhook:{{ .Version }}-amd64"
     use: buildx
-    dockerfile: "Dockerfile"
+    dockerfile: "GoReleaser.Dockerfile"
     build_flag_templates:
       - "--platform=linux/amd64"
 docker_manifests:

@@ -14,7 +14,7 @@ RUN go mod tidy && TAG=$(git describe --tags --abbrev=0) \
 # Building image with the binary
 FROM scratch
 
-COPY --from=build /go/bin/go-bpkg /go/bin/go-bpkg
+COPY --from=build /go/bin/webhook-mutate /go/bin/webhook-mutate
 COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
-ENTRYPOINT ["/go/bin/go-bpkg"]
+ENTRYPOINT ["/go/bin/webhook-mutate"]
