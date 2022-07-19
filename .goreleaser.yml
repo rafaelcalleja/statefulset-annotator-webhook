@@ -26,7 +26,6 @@ docker_manifests:
   - name_template: rafaelcalleja/statefulset-annotator-webhook:{{ .Version }}
     image_templates:
       - rafaelcalleja/statefulset-annotator-webhook:{{ .Version }}-amd64
-      - rafaelcalleja/statefulset-annotator-webhook:{{ .Version }}-arm64v8
 checksum:
   name_template: 'checksums.txt'
 changelog:
