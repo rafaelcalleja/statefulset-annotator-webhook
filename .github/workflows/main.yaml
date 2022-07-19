@@ -9,7 +9,6 @@ on:
       - 'cmd/**'
       - 'internal/**'
       - 'pkg/**'
-
 jobs:
   build:
     runs-on: ubuntu-latest
