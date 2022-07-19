@@ -1,0 +1,34 @@
+before:
+  hooks:
+    - go mod download
+builds:
+  -
+    main: ./cmd/main.go
+    binary: webhook-mutate
+    ldflags:
+      -X "{{.Env.ROOTPACKAGE}}/pkg/cmd/version.Version={{.Tag}}" -X "{{.Env.ROOTPACKAGE}}/pkg/cmd/version.Revision={{.Env.REV}}" -X "{{.Env.ROOTPACKAGE}}/pkg/cmd/version.Branch={{.Env.BRANCH}}" -X "{{.Env.ROOTPACKAGE}}/pkg/cmd/version.BuildDate={{.Env.BUILDDATE}}" -X "{{.Env.ROOTPACKAGE}}/pkg/cmd/version.GoVersion={{.Env.GOVERSION}}"
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+      - amd64
+dockers:
+  - image_templates:
+      - "rafaelcalleja/statefulset-annotator-webhook:latest"
+      - "rafaelcalleja/statefulset-annotator-webhook:{{ .Version }}"
+      - "rafaelcalleja/statefulset-annotator-webhook:{{ .Version }}-amd64"
+    use: buildx
+    dockerfile: "Dockerfile"
+    build_flag_templates:
+      - "--platform=linux/amd64"
+docker_manifests:
+  - name_template: rafaelcalleja/statefulset-annotator-webhook:{{ .Version }}
+    image_templates:
+      - rafaelcalleja/statefulset-annotator-webhook:{{ .Version }}-amd64
+      - rafaelcalleja/statefulset-annotator-webhook:{{ .Version }}-arm64v8
+checksum:
+  name_template: 'checksums.txt'
+changelog:
+  skip: true
+
